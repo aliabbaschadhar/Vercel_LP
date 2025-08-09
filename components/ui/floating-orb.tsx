@@ -1,124 +1,117 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export function FloatingOrb() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+    
     const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      setMousePosition({ 
+        x: (e.clientX - window.innerWidth / 2) * 0.01,
+        y: (e.clientY - window.innerHeight / 2) * 0.01
+      });
     };
 
     window.addEventListener('mousemove', updateMousePosition);
     return () => window.removeEventListener('mousemove', updateMousePosition);
   }, []);
 
+  if (!isClient) {
+    return (
+      <div className="relative w-96 h-96 flex items-center justify-center">
+        <div className="w-64 h-64 rounded-full bg-gradient-to-br from-[#7F00FF]/20 to-[#00F5D4]/20 blur-xl" />
+      </div>
+    );
+  }
+
   return (
-    <div className="relative w-96 h-96">
+    <div className="relative w-96 h-96 flex items-center justify-center">
       {/* Main Orb */}
       <motion.div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        className="relative w-64 h-64"
         animate={{
-          x: mousePosition.x * 0.02,
-          y: mousePosition.y * 0.02,
-          rotateY: mousePosition.x * 0.1,
-          rotateX: -mousePosition.y * 0.1,
+          x: mousePosition.x * 20,
+          y: mousePosition.y * 20,
+          rotateX: mousePosition.y * 10,
+          rotateY: mousePosition.x * 10,
         }}
         transition={{ type: "spring", damping: 30, stiffness: 200 }}
+        style={{ transformStyle: 'preserve-3d' }}
       >
-        <div className="relative w-48 h-48">
-          {/* Core Sphere */}
-          <motion.div
-            className="absolute inset-0 rounded-full bg-gradient-to-br from-[#7F00FF]/30 to-[#00F5D4]/30 backdrop-blur-lg border border-white/20"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          >
-            {/* Inner Glow */}
-            <div className="absolute inset-4 rounded-full bg-gradient-to-br from-[#7F00FF]/50 to-[#00F5D4]/50 blur-xl" />
-          </motion.div>
-
-          {/* Orbiting Elements */}
-          <motion.div
-            className="absolute inset-0"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          >
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-[#00F5D4] rounded-full glow-aqua" />
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-3 h-3 bg-[#7F00FF] rounded-full glow-violet" />
-            <div className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-[#F8F9FA] rounded-full" />
-            <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#00F5D4] rounded-full" />
-          </motion.div>
-
-          {/* Data Streams */}
-          <svg className="absolute inset-0 w-full h-full">
-            <motion.circle
-              cx="50%"
-              cy="50%"
-              r="80"
-              fill="none"
-              stroke="url(#gradient1)"
-              strokeWidth="1"
-              strokeDasharray="4,4"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1, rotate: 360 }}
-              transition={{ 
-                pathLength: { duration: 2, ease: "easeInOut" },
-                rotate: { duration: 10, repeat: Infinity, ease: "linear" }
-              }}
-            />
-            <motion.circle
-              cx="50%"
-              cy="50%"
-              r="60"
-              fill="none"
-              stroke="url(#gradient2)"
-              strokeWidth="1"
-              strokeDasharray="2,6"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1, rotate: -360 }}
-              transition={{ 
-                pathLength: { duration: 2, delay: 0.5, ease: "easeInOut" },
-                rotate: { duration: 8, repeat: Infinity, ease: "linear" }
-              }}
-            />
-            <defs>
-              <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#7F00FF" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#00F5D4" stopOpacity="0.3" />
-              </linearGradient>
-              <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#00F5D4" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#7F00FF" stopOpacity="0.3" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-      </motion.div>
-
-      {/* Floating Particles */}
-      {[...Array(6)].map((_, i) => (
+        {/* Core Sphere */}
         <motion.div
-          key={i}
-          className="absolute w-2 h-2 bg-[#00F5D4] rounded-full"
-          style={{
-            top: `${20 + i * 10}%`,
-            left: `${15 + i * 12}%`,
-          }}
+          className="absolute inset-0 rounded-full bg-gradient-to-br from-[#7F00FF] via-[#9333EA] to-[#00F5D4] opacity-80"
           animate={{
-            y: [0, -20, 0],
-            opacity: [0.3, 1, 0.3],
-            scale: [0.8, 1.2, 0.8],
+            scale: [1, 1.05, 1],
+            rotate: [0, 360],
           }}
           transition={{
-            duration: 3 + i * 0.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: i * 0.2,
+            scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+          }}
+          style={{
+            boxShadow: '0 0 60px rgba(127, 0, 255, 0.4), inset 0 0 60px rgba(0, 245, 212, 0.2)',
           }}
         />
-      ))}
+
+        {/* Inner Glow */}
+        <motion.div
+          className="absolute inset-4 rounded-full bg-gradient-to-br from-[#00F5D4]/60 to-[#7F00FF]/60 blur-sm"
+          animate={{
+            scale: [0.8, 1.2, 0.8],
+            opacity: [0.6, 0.9, 0.6],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
+        {/* Outer Ring */}
+        <motion.div
+          className="absolute -inset-8 rounded-full border-2 border-[#00F5D4]/30"
+          animate={{
+            rotate: [0, -360],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            rotate: { duration: 15, repeat: Infinity, ease: "linear" },
+            scale: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+          }}
+        />
+
+        {/* Floating Particles */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-[#00F5D4] rounded-full"
+            style={{
+              left: `${50 + 40 * Math.cos((i * Math.PI * 2) / 6)}%`,
+              top: `${50 + 40 * Math.sin((i * Math.PI * 2) / 6)}%`,
+            }}
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0.4, 1, 0.4],
+              scale: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: 2 + i * 0.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.3,
+            }}
+          />
+        ))}
+      </motion.div>
+
+      {/* Background Glow */}
+      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#7F00FF]/10 to-[#00F5D4]/10 blur-3xl scale-150" />
     </div>
   );
 }

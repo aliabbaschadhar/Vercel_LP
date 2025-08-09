@@ -57,8 +57,8 @@ function FeatureCard({ feature, index }: { feature: typeof features[0], index: n
       transition={{ duration: 0.8, delay: index * 0.2 }}
       className={`flex items-center gap-8 ${feature.side === 'right' ? 'flex-row-reverse' : ''}`}
     >
-      {/* Content */}
-      <div className={`flex-1 ${feature.side === 'right' ? 'text-right' : ''}`}>
+      <div className="w-16 h-16 lg:w-24 lg:h-24 rounded-2xl bg-gradient-to-br from-[#7F00FF] to-[#00F5D4] flex items-center justify-center glow-violet">
+        <Icon className="w-8 h-8 lg:w-12 lg:h-12 text-white" />
         <motion.div
           whileHover={{ scale: 1.02 }}
           className="backdrop-blur-lg bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-[#00F5D4]/30 transition-all duration-300"
@@ -71,10 +71,10 @@ function FeatureCard({ feature, index }: { feature: typeof features[0], index: n
       {/* Icon */}
       <motion.div
         whileHover={{ scale: 1.1, rotate: 5 }}
-        className="flex-shrink-0"
+        className="backdrop-blur-lg bg-white/5 rounded-2xl p-6 lg:p-8 border border-white/10 hover:border-[#00F5D4]/30 transition-all duration-300"
       >
-        <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-[#7F00FF] to-[#00F5D4] flex items-center justify-center glow-violet">
-          <Icon className="w-12 h-12 text-white" />
+        <h3 className="text-xl lg:text-2xl font-bold text-[#F8F9FA] mb-4">{feature.title}</h3>
+        <p className="text-[#F8F9FA]/70 text-base lg:text-lg leading-relaxed">{feature.description}</p>
         </div>
       </motion.div>
     </motion.div>

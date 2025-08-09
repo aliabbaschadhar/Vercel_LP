@@ -9,10 +9,37 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '475px',
+        '3xl': '1600px',
+      },
+      fontFamily: {
+        sans: ['var(--font-inter)', 'Inter Fallback', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'JetBrains Mono Fallback', 'monospace'],
+      },
+      fontSize: {
+        'responsive-xs': 'var(--font-size-xs)',
+        'responsive-sm': 'var(--font-size-sm)',
+        'responsive-base': 'var(--font-size-base)',
+        'responsive-lg': 'var(--font-size-lg)',
+        'responsive-xl': 'var(--font-size-xl)',
+        'responsive-2xl': 'var(--font-size-2xl)',
+        'responsive-3xl': 'var(--font-size-3xl)',
+        'responsive-4xl': 'var(--font-size-4xl)',
+        'responsive-5xl': 'var(--font-size-5xl)',
+        'responsive-6xl': 'var(--font-size-6xl)',
+        'responsive-7xl': 'var(--font-size-7xl)',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
+      animation: {
+        'float': 'float 3s ease-in-out infinite',
+        'pulse-glow': 'pulse-glow 4s ease-in-out infinite',
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
       },
       borderRadius: {
         lg: 'var(--radius)',

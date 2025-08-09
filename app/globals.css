@@ -2,11 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Font Face Declarations for Local Fonts */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('system-ui'), local('-apple-system'), local('BlinkMacSystemFont');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono Fallback';
+  src: local('Consolas'), local('Monaco'), local('Courier New');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
   --deep-space-black: #0D0D0D;
   --electric-violet: #7F00FF;
   --aqua-blue: #00F5D4;
   --soft-white: #F8F9FA;
+  
+  /* Responsive font sizes */
+  --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --font-size-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+  --font-size-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --font-size-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+  --font-size-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  --font-size-2xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  --font-size-3xl: clamp(1.875rem, 1.6rem + 1.375vw, 2.5rem);
+  --font-size-4xl: clamp(2.25rem, 1.9rem + 1.75vw, 3rem);
+  --font-size-5xl: clamp(3rem, 2.5rem + 2.5vw, 4rem);
+  --font-size-6xl: clamp(3.75rem, 3rem + 3.75vw, 5rem);
+  --font-size-7xl: clamp(4.5rem, 3.5rem + 5vw, 6rem);
 }
 
 @layer base {
@@ -40,6 +68,35 @@
   }
   body {
     @apply bg-[#0D0D0D] text-[#F8F9FA] font-sans antialiased;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Improved text rendering */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+  
+  p {
+    line-height: 1.6;
+  }
+  
+  /* Responsive typography */
+  .text-responsive-xs { font-size: var(--font-size-xs); }
+  .text-responsive-sm { font-size: var(--font-size-sm); }
+  .text-responsive-base { font-size: var(--font-size-base); }
+  .text-responsive-lg { font-size: var(--font-size-lg); }
+  .text-responsive-xl { font-size: var(--font-size-xl); }
+  .text-responsive-2xl { font-size: var(--font-size-2xl); }
+  .text-responsive-3xl { font-size: var(--font-size-3xl); }
+  .text-responsive-4xl { font-size: var(--font-size-4xl); }
+  .text-responsive-5xl { font-size: var(--font-size-5xl); }
+  .text-responsive-6xl { font-size: var(--font-size-6xl); }
+  .text-responsive-7xl { font-size: var(--font-size-7xl); }
   }
 }
 
@@ -80,5 +137,69 @@
 
 /* Neon text effect */
 .neon-text {
-  text-shadow: 0 0 10px currentColor;
+  text-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 15px currentColor;
+}
+
+/* Enhanced animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(127, 0, 255, 0.3);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(0, 245, 212, 0.5);
+    transform: scale(1.02);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+/* Improved responsive utilities */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .hero-title {
+    font-size: var(--font-size-4xl);
+    line-height: 1.1;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .hero-title {
+    font-size: var(--font-size-5xl);
+  }
+}
+
+@media (min-width: 1025px) {
+  .hero-title {
+    font-size: var(--font-size-7xl);
+  }
+}
+
+/* Performance optimizations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
