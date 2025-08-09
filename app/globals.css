@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --deep-space-black: #0D0D0D;
+  --electric-violet: #7F00FF;
+  --aqua-blue: #00F5D4;
+  --soft-white: #F8F9FA;
+}
+
+@layer base {
+  :root {
+    --background: 13 13 13;
+    --foreground: 248 249 250;
+    --card: 13 13 13;
+    --card-foreground: 248 249 250;
+    --popover: 13 13 13;
+    --popover-foreground: 248 249 250;
+    --primary: 127 0 255;
+    --primary-foreground: 248 249 250;
+    --secondary: 0 245 212;
+    --secondary-foreground: 13 13 13;
+    --muted: 39 39 42;
+    --muted-foreground: 161 161 170;
+    --accent: 0 245 212;
+    --accent-foreground: 13 13 13;
+    --destructive: 239 68 68;
+    --destructive-foreground: 248 249 250;
+    --border: 39 39 42;
+    --input: 39 39 42;
+    --ring: 127 0 255;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-[#0D0D0D] text-[#F8F9FA] font-sans antialiased;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D0D0D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7F00FF;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00F5D4;
+}
+
+/* Glow effects */
+.glow-violet {
+  box-shadow: 0 0 20px rgba(127, 0, 255, 0.3);
+}
+
+.glow-aqua {
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.3);
+}
+
+/* Grid pattern */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(127, 0, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127, 0, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Neon text effect */
+.neon-text {
+  text-shadow: 0 0 10px currentColor;
+}
